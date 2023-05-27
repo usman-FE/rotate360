@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="./dist/main.css" />
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/images/favicon.png" />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet" />
+
+    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script> -->
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
+
+    <title>mobWOW | Sell my car</title>
+  </head>
+
+  <body>
+    <!-- MAIN CONTAINER START -->
+    <main class="h-full">
+      <!-- ROTATER SECTION START -->
+      <section
+        x-data="{
+          imageSrcs: [
+            'images/IMG_001.jpg',
+            'images/IMG_002.jpg',
+            'images/IMG_003.jpg',
+            'images/IMG_004.jpg',
+            'images/IMG_005.jpg',
+            'images/IMG_006.jpg',
+            'images/IMG_007.jpg',
+            'images/IMG_008.jpg',
+            'images/IMG_009.jpg',
+            'images/IMG_0010.jpg',
+            'images/IMG_0011.jpg',
+            'images/IMG_0012.jpg',
+            'images/IMG_0013.jpg',
+            'images/IMG_0014.jpg',
+            'images/IMG_0015.jpg',
+            'images/IMG_0016.jpg',
+            'images/IMG_0017.jpg',
+            'images/IMG_0018.jpg',
+            'images/IMG_0019.jpg',
+            'images/IMG_0020.jpg',
+            'images/IMG_0021.jpg',
+            'images/IMG_0022.jpg',
+            'images/IMG_0023.jpg',
+            'images/IMG_0024.jpg',
+            'images/IMG_0025.jpg',
+            'images/IMG_0026.jpg',
+            'images/IMG_0027.jpg',
+            'images/IMG_0028.jpg',
+            'images/IMG_0029.jpg',
+            'images/IMG_0030.jpg',
+            'images/IMG_0031.jpg',
+            'images/IMG_0032.jpg',
+            'images/IMG_0033.jpg',
+            'images/IMG_0034.jpg',
+            'images/IMG_0035.jpg',
+            'images/IMG_0036.jpg',
+            'images/IMG_0037.jpg',
+            'images/IMG_0038.jpg',
+            'images/IMG_0039.jpg',
+            'images/IMG_0040.jpg',
+            'images/IMG_0041.jpg',
+            'images/IMG_0042.jpg',
+            'images/IMG_0043.jpg',
+            'images/IMG_0044.jpg',
+            'images/IMG_0045.jpg',
+            'images/IMG_0046.jpg',
+            'images/IMG_0047.jpg',
+            'images/IMG_0048.jpg',
+            'images/IMG_0049.jpg',
+            'images/IMG_0050.jpg',
+            'images/IMG_0051.jpg',
+            'images/IMG_0052.jpg',
+            'images/IMG_0053.jpg',
+            'images/IMG_0054.jpg',
+            'images/IMG_0055.jpg',
+            'images/IMG_0056.jpg',
+            'images/IMG_0057.jpg',
+            'images/IMG_0058.jpg',
+            'images/IMG_0059.jpg',
+            'images/IMG_0060.jpg',
+            'images/IMG_0061.jpg',
+            'images/IMG_0062.jpg',
+            'images/IMG_0063.jpg',
+            'images/IMG_0064.jpg',
+            'images/IMG_0065.jpg',
+            'images/IMG_0066.jpg',
+            'images/IMG_0067.jpg',
+            'images/IMG_0068.jpg',
+            'images/IMG_0069.jpg',
+            'images/IMG_0070.jpg',
+            'images/IMG_0071.jpg',
+            'images/IMG_0072.jpg'
+          ],
+          currentImageIndex: 0,
+          isLoaded: false,
+          loadedImage: 0,
+          isRotating: false,
+          startX: 0,
+          startY: 0,
+          imageLoader(){
+            this.imageSrcs.forEach(src => {
+                
+              const image = new Image();
+              image.src = src;
+
+              image.onload = () => {
+                this.checkAllImageLoaded();
+              };
+            })
+          },
+          checkAllImageLoaded(){
+            this.loadedImage++;
+            if(this.loadedImage === this.imageSrcs.length) this.isLoaded = true;
+          },
+          getCoordinates(e, el){
+
+            const rect = el.getBoundingClientRect();
+            const mouseX = e.clientX || e.touches[0].clientX;
+            const mouseY = e.clientY || e.touches[0].clientY;
+
+            const pointX = (mouseX - rect.left) / rect.width;
+            const pointY =  (mouseY - rect.top) / rect.height;
+
+            return [pointX, pointY]
+          },
+          setInitialCoords(e, el){
+            const [x, y] = this.getCoordinates(e, el);
+            this.startX = x;
+            this.startY = y;
+          },
+          rotateImage(e, el){
+            const [currentX, currentY] = this.getCoordinates(e, el);
+
+            if
+              (currentX < this.startX) {
+              this.currentImageIndex++;
+              if(this.currentImageIndex === this.imageSrcs.length) this.currentImageIndex = 0;
+            } 
+            if
+              (currentX > this.startX) {
+              this.currentImageIndex--;
+              if(this.currentImageIndex < 0) this.currentImageIndex = this.imageSrcs.length - 1;
+            } 
+
+            this.startX = currentX;
+            this.startY = currentY;
+          }
+        }">
+        <div
+          class="container mx-auto px-[15px] xl:max-w-[1200px] font-['Roboto'] my-20">
+          <!-- SLIDER CONTAINER -->
+          <div
+            :class="isRotating ? 'cursor-grabbing' : 'cursor-grab'"
+            class="flex items-center justify-center w-full max-h-[24rem] select-none"
+            @mousedown="
+              isRotating = true;
+              setInitialCoords($event, $el);
+            "
+            @touchstart="
+              isRotating = true;
+              setInitialCoords($event, $el);
+            "
+            @mousemove="
+
+              if(!isRotating) return;
+              rotateImage($event, $el);
+            "
+            @touchmove="
+
+              if(!isRotating) return;
+              rotateImage($event, $el);
+            "
+            @touchmove.outside="
+              isRotating = false;
+            "
+            @mouseup="
+              isRotating = false;
+            "
+            @touchend="
+              isRotating = false;
+            "
+            @mouseleave="
+              isRotating = false;
+            ">
+            <!-- LOADER IMAGE -->
+            <img
+              class="w-full h-auto max-w-md"
+              x-show="!isLoaded"
+              src="images/loading.gif"
+              alt="Loading Image" />
+            <!-- ACTUAL IMAGE -->
+            <img
+              draggable="false"
+              class="w-full h-auto max-w-md transition-all"
+              x-show="isLoaded"
+              :src="imageSrcs[currentImageIndex]"
+              @load.window="imageLoader"
+              alt="" />
+          </div>
+        </div>
+      </section>
+      <!-- ROTATER SECTION END -->
+    </main>
+    <!-- MAIN CONTAINER END -->
+  </body>
+</html>
