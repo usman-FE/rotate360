@@ -41,96 +41,133 @@
       <!-- ROTATER SECTION START -->
       <section
         x-data="{
-          imageSrcs: [
-            'images/IMG_001.jpg',
-            'images/IMG_002.jpg',
-            'images/IMG_003.jpg',
-            'images/IMG_004.jpg',
-            'images/IMG_005.jpg',
-            'images/IMG_006.jpg',
-            'images/IMG_007.jpg',
-            'images/IMG_008.jpg',
-            'images/IMG_009.jpg',
-            'images/IMG_0010.jpg',
-            'images/IMG_0011.jpg',
-            'images/IMG_0012.jpg',
-            'images/IMG_0013.jpg',
-            'images/IMG_0014.jpg',
-            'images/IMG_0015.jpg',
-            'images/IMG_0016.jpg',
-            'images/IMG_0017.jpg',
-            'images/IMG_0018.jpg',
-            'images/IMG_0019.jpg',
-            'images/IMG_0020.jpg',
-            'images/IMG_0021.jpg',
-            'images/IMG_0022.jpg',
-            'images/IMG_0023.jpg',
-            'images/IMG_0024.jpg',
-            'images/IMG_0025.jpg',
-            'images/IMG_0026.jpg',
-            'images/IMG_0027.jpg',
-            'images/IMG_0028.jpg',
-            'images/IMG_0029.jpg',
-            'images/IMG_0030.jpg',
-            'images/IMG_0031.jpg',
-            'images/IMG_0032.jpg',
-            'images/IMG_0033.jpg',
-            'images/IMG_0034.jpg',
-            'images/IMG_0035.jpg',
-            'images/IMG_0036.jpg',
-            'images/IMG_0037.jpg',
-            'images/IMG_0038.jpg',
-            'images/IMG_0039.jpg',
-            'images/IMG_0040.jpg',
-            'images/IMG_0041.jpg',
-            'images/IMG_0042.jpg',
-            'images/IMG_0043.jpg',
-            'images/IMG_0044.jpg',
-            'images/IMG_0045.jpg',
-            'images/IMG_0046.jpg',
-            'images/IMG_0047.jpg',
-            'images/IMG_0048.jpg',
-            'images/IMG_0049.jpg',
-            'images/IMG_0050.jpg',
-            'images/IMG_0051.jpg',
-            'images/IMG_0052.jpg',
-            'images/IMG_0053.jpg',
-            'images/IMG_0054.jpg',
-            'images/IMG_0055.jpg',
-            'images/IMG_0056.jpg',
-            'images/IMG_0057.jpg',
-            'images/IMG_0058.jpg',
-            'images/IMG_0059.jpg',
-            'images/IMG_0060.jpg',
-            'images/IMG_0061.jpg',
-            'images/IMG_0062.jpg',
-            'images/IMG_0063.jpg',
-            'images/IMG_0064.jpg',
-            'images/IMG_0065.jpg',
-            'images/IMG_0066.jpg',
-            'images/IMG_0067.jpg',
-            'images/IMG_0068.jpg',
-            'images/IMG_0069.jpg',
-            'images/IMG_0070.jpg',
-            'images/IMG_0071.jpg',
-            'images/IMG_0072.jpg'
+          imageCount: 72,
+          imageSrcs: [],
+          hotspots: [
+              {
+                  left: 33.55654648372105,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_70.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 34.449403626578196,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_69.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 35.342260769435335,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_68.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 36.68154648372105,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_67.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 37.79761791229248,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_66.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 39.36011791229248,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_65.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 41.145832198006765,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_64.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 42.48511791229248,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_63.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 44.270832198006765,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_62.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 45.833332198006765,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_61.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 47.842260769435335,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_60.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 49.627975055149626,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_59.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 51.41368934086391,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_58.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 53.19940362657819,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_57.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 54.98511791229248,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_56.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 56.77083219800677,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_55.jpg',
+                  hotspotText: 'This is hotspot 1'
+              },
+              {
+                  left: 58.33333219800677,
+                  top: 28.682893370150193,
+                  currentImage: 'images/IMG_54.jpg',
+                  hotspotText: 'This is hotspot 1'
+              }
           ],
           currentImageIndex: 0,
+          enableMarkers: false,
           isLoaded: false,
           loadedImage: 0,
           isRotating: false,
           startX: 0,
           startY: 0,
           imageLoader(){
-            this.imageSrcs.forEach(src => {
-                
+
+            for (let i = 1; i <= this.imageCount; i++) {
+
+              const pathName = `images/IMG_${i}.jpg`;
+              this.imageSrcs.push(pathName);
+
               const image = new Image();
-              image.src = src;
+              image.src = pathName;
 
               image.onload = () => {
                 this.checkAllImageLoaded();
-              };
-            })
+              }
+            }
           },
           checkAllImageLoaded(){
             this.loadedImage++;
@@ -168,6 +205,24 @@
 
             this.startX = currentX;
             this.startY = currentY;
+          },
+          getDataOnClick(e, el){
+            const rect = el.getBoundingClientRect();
+            const scaleX = el.offsetWidth / rect.width;
+            const scaleY = el.offsetHeight / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            const currentImage = this.imageSrcs[this.currentImageIndex];
+            const hotspotText = 'This is hotspot 1';
+            
+            this.hotspots.push({
+              left: x / el.offsetWidth * 100,
+              top: y / el.offsetHeight * 100,
+              currentImage,
+              hotspotText
+            });
+
+            console.log(this.hotspots);
           }
         }">
         <div
@@ -175,7 +230,11 @@
           <!-- SLIDER CONTAINER -->
           <div
             :class="isRotating ? 'cursor-grabbing' : 'cursor-grab'"
-            class="flex items-center justify-center w-full max-h-[24rem] select-none"
+            class="flex items-center justify-center w-full max-h-[24rem] select-none relative"
+            @click="
+              if(!enableMarkers) return;
+              getDataOnClick($event, $refs.image);
+            "
             @mousedown="
               isRotating = true;
               setInitialCoords($event, $el);
@@ -213,13 +272,51 @@
               src="images/loading.gif"
               alt="Loading Image" />
             <!-- ACTUAL IMAGE -->
-            <img
-              draggable="false"
-              class="w-full h-auto max-w-md transition-all"
-              x-show="isLoaded"
-              :src="imageSrcs[currentImageIndex]"
-              @load.window="imageLoader"
-              alt="" />
+            <div class="relative">
+              <img
+                draggable="false"
+                class="w-full h-auto max-w-md transition-all"
+                x-show="isLoaded"
+                x-ref="image"
+                :src="imageSrcs[currentImageIndex]"
+                @load.window="imageLoader"
+                alt="" />
+              <!-- MARKERS -->
+              <template
+                x-for="(hotspot, index) in hotspots"
+                :key="index">
+                <div
+                  x-show="hotspot.currentImage == imageSrcs[currentImageIndex]"
+                  :style="'left:' + hotspot.left + '%;' + 'top:' + hotspot.top + '%;'"
+                  class="w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2 absolute bg-red-600 transition-all"></div>
+              </template>
+            </div>
+          </div>
+          <!-- CONTROLS -->
+          <div class="flex gap-4">
+            <button
+              @click.prevent="
+              currentImageIndex++;
+              if(currentImageIndex === imageSrcs.length) currentImageIndex = 0;
+              console.log(imageSrcs[currentImageIndex]);
+            ">
+              Left
+            </button>
+            <button
+              @click.prevent="
+            currentImageIndex--;
+              if(currentImageIndex < 0) currentImageIndex = imageSrcs.length - 1;
+              console.log(imageSrcs[currentImageIndex]);
+            ">
+              Right
+            </button>
+            <button
+              class="bg-red-600 text-white p-1 text-xs"
+              @click.prevent="
+              enableMarkers = !enableMarkers
+            ">
+              Enable Markers
+            </button>
           </div>
         </div>
       </section>
