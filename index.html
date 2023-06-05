@@ -46,6 +46,7 @@
           hotspots: [
             {
               hotspotText: 'This is the first hotspot',
+              hotspotURL: '#',
               framesData: [
                 {
                     currentImage: 'images/IMG_1.jpg',
@@ -156,6 +157,7 @@
             },
             {
               hotspotText: 'This is the second hotspot',
+              hotspotURL: '#',
               framesData: [
                 {
                   currentImage: 'images/IMG_66.jpg',
@@ -286,6 +288,7 @@
             },
             {
               hotspotText: 'This is the third hotspot',
+              hotspotURL: '#',
               framesData: [
                 {
                   currentImage: 'images/IMG_50.jpg',
@@ -421,6 +424,7 @@
             },
             {
               hotspotText: 'This is the forth hotspot',
+              hotspotURL: '#',
               framesData: [
                 {
                   currentImage: 'images/IMG_27.jpg',
@@ -531,6 +535,8 @@
           firstClickHappend: false,
           initialTop: null,
           initialHotspotText: '',
+          initialHotspotURL: '',
+          hotspotTextModal: false,
           framesData: [],
           imageLoader(){
 
@@ -584,13 +590,6 @@
             this.startX = currentX;
             this.startY = currentY;
           },
-          getConstantDataOfHotspot(e, el){
-
-            if(this.firstClickHappend) return;
-            const hotspotText = 'This is first hotspot'
-            this.initialHotspotText = hotspotText;
-
-          },
           getFrameDataOnClick(e, el){
             const rect = el.getBoundingClientRect();
             const scaleX = el.offsetWidth / rect.width;
@@ -611,16 +610,22 @@
 
             this.hotspots.push({
               hotspotText: this.initialHotspotText,
+              hotspotURL: this.initialHotspotURL,
               framesData: this.framesData,
             });
 
             this.firstClickHappend = false;
             this.initialHotspotText = '';
+            this.initialHotspotURL = '';
             this.initialTop = null;
             this.framesData = [];
 
             console.log(this.hotspots);
-          }
+          },
+          bodyOverflow: function (modal) {
+            document.querySelector('body').classList.remove('overflow-hidden', 'overflow-visible');
+            document.querySelector('body').classList.add(modal ? 'overflow-hidden' : 'overflow-visible');
+          },       
         }">
         <div
           class="container mx-auto px-[15px] xl:max-w-[1200px] font-['Roboto'] my-20">
@@ -630,7 +635,6 @@
             class="flex items-center justify-center w-full max-h-[24rem] select-none relative"
             @click="
               if(!enableMarkers) return;
-              getConstantDataOfHotspot($event, $refs.image);
               firstClickHappend = true;
               getFrameDataOnClick($event, $refs.image);
             "
@@ -687,14 +691,57 @@
                 <template
                   x-for="(frameData, index) in hotspot.framesData"
                   :key="index">
+                  <!-- HOTSPOT -->
                   <div
                     x-show="(frameData.currentImage == imageSrcs[currentImageIndex]) && isLoaded"
                     :style="'left:' + frameData.left + '%;' + 'top:' + frameData.top + '%;'"
-                    class="w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2 absolute transition-all">
-                    <img
-                      src="images/favicon.png"
-                      alt="Favicon"
-                      class="w-full h-auto" />
+                    class="w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2 absolute transition-all group">
+                    <div>
+                      <img
+                        src="images/favicon.png"
+                        alt="Favicon"
+                        class="w-full h-auto" />
+                    </div>
+                    <div
+                      class="group-hover:opacity-100 group-hover:visible opacity-0 invisible rounded-full text-white w-44 h-44 top-0 left-0 -translate-x-1/2 -translate-y-1/2 transition-all z-40">
+                      <div
+                        class="text-center relative w-full h-full flex items-center justify-center">
+                        <div
+                          class="relative z-10 flex items-center justify-center flex-col gap-1 p-3">
+                          <span
+                            class="leading-tight block"
+                            x-text="hotspot.hotspotText"></span>
+                          <a
+                            x-show="hotspot.hotspotURL"
+                            :href="hotspot.hotspotURL"
+                            class="underline text-xs flex items-center gap-1">
+                            <span> Learn more </span>
+                            <span
+                              ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                class="w-3 h-3">
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M10.21 14.77a.75.75 0 01.02-1.06L14.168 10 10.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                                  clip-rule="evenodd" />
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M4.21 14.77a.75.75 0 01.02-1.06L8.168 10 4.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                                  clip-rule="evenodd" />
+                              </svg>
+                            </span>
+                          </a>
+                        </div>
+                        <img
+                          class="absolute top-0 left-0 inset-0 block animate-spin w-full h-auto"
+                          style="animation-duration: 18s !important"
+                          src="images/popup-download-back.svg"
+                          class="z-0"
+                          alt="" />
+                      </div>
+                    </div>
                   </div>
                 </template>
               </template>
@@ -722,11 +769,111 @@
             <button
               class="bg-red-600 text-white p-1 text-xs"
               @click.prevent="
-              setHotspotData();
-              enableMarkers = !enableMarkers"
+                setHotspotData();
+                enableMarkers = !enableMarkers;
+                if(!enableMarkers) return;
+                hotspotTextModal = true;
+              "
               x-text="!enableMarkers ? 'Start putting markers frame by frame' : 'Save markers'"></button>
           </div>
         </div>
+
+        <!-- HOTSPOT TEXT MODAL -->
+        <template x-if="true">
+          <!-- REMINDER MODAL -->
+          <div
+            x-show="hotspotTextModal"
+            x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-500"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            @click.self="
+              hotspotTextModal = false;
+              bodyOverflow(hotspotTextModal);
+              enableMarkers = false;
+            "
+            class="fixed inset-0 bg-black/50 h-full w-full z-[9999999] flex items-center justify-center px-2.5">
+            <!-- MODAL BODY -->
+            <form
+              class="bg-white w-full md:max-w-xl rounded-xl py-5"
+              x-show="hotspotTextModal"
+              x-transition:enter="transition ease-out duration-500"
+              x-transition:enter-start="opacity-0 scale-90"
+              x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="transition ease-in duration-300"
+              x-transition:leave-start="opacity-100 scale-100"
+              x-transition:leave-end="opacity-0 scale-90">
+              <!-- MODAL HEADER -->
+              <div
+                class="grid grid-cols-4 items-center mt-0.5 mb-5 px-4 md:px-12"
+                x-show="hotspotTextModal"
+                x-transition:enter="transition ease-in duration-300 delay-[400ms]"
+                x-transition:enter-start="opacity-0 -translate-y-3 translate-x-5"
+                x-transition:enter-end="opacity-100 translate-y-0 translate-x-0"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-90">
+                <h2
+                  class="text-[#696971] text-base font-semibold uppercase text-left col-span-3">
+                  hotspot details
+                </h2>
+                <button
+                  @click="
+                    hotspotTextModal = false; 
+                    bodyOverflow(hotspotTextModal);
+                    enableMarkers = false
+                  "
+                  type="button"
+                  class="outline-none bg-transparent border-none group justify-self-end">
+                  <img
+                    src="images/modal-close-icon-dark.png"
+                    alt="Close Button"
+                    class="select-none transition-all group-hover:rotate-180 w-[26px] h-[26px]"
+                    draggable="false" />
+                </button>
+              </div>
+              <!-- MODAL CONTENT -->
+              <div>
+                <div
+                  class="border-t border-[#0000001f] h-[65vh] overflow-y-auto relative px-4 md:px-12 py-6">
+                  <form>
+                    <div class="relative">
+                      <input
+                        type="text"
+                        class="py-2 px-4 w-full text-base font-normal text-[#000000de] border border-[#0000001f] outline-[#ff0020] transition-all hover:border-black"
+                        id="text"
+                        autocomplete="off"
+                        required
+                        x-model="initialHotspotText"
+                        placeholder="Enter description" />
+                    </div>
+                    <div class="relative mt-2">
+                      <input
+                        type="text"
+                        class="py-2 px-4 w-full text-base font-normal text-[#000000de] border border-[#0000001f] outline-[#ff0020] transition-all hover:border-black"
+                        id="text"
+                        autocomplete="off"
+                        x-model="initialHotspotURL"
+                        @keydown.window="console.log(initialHotspotURL)"
+                        placeholder="Enter url (optional)" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- MODAL FOOTER -->
+              <div
+                class="flex items-center justify-center pt-5 gap-8 px-4 md:px-12 border-t border-[#0000001f]">
+                <button
+                  @click.prevent="hotspotTextModal = false"
+                  class="drop-shadow-lg z-10 before:block before:absolute before:left-auto before:right-0 before:inset-y-0 before:-z-[1] before:bg-white before:w-0 hover:before:w-full hover:before:left-0 hover:before:right-auto before:transition-all before:duration-300 transition-all duration-300 leading-none px-[20px] py-[15px] uppercase font-medium text-white hover:text-[#ff0020] block text-[14px] relative after:block after:absolute after:inset-0 after:-z-[2] after:bg-[#ff0020] after:transition-all border border-[#ff0020] hover:border-[#ff0020] basis-full text-center">
+                  Continue adding the hotspots
+                </button>
+              </div>
+            </form>
+          </div>
+        </template>
       </section>
       <!-- ROTATER SECTION END -->
     </main>
